@@ -1,0 +1,12 @@
+.DS_Store
+*.py[co]
+*.egg
+*.egg-info
+venv
+env
+dist
+sdist
+build
+bin
+var
+develop-eggs
