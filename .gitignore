@@ -1,3 +1,6 @@
+# Don't commit your sensitive config files
+config.py
+
 .DS_Store
 *.py[co]
 *.egg

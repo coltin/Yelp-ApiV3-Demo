@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Search for a business with Yelp!</title>
+    <link rel="stylesheet" href="/static/jquery-ui.css">
+    <style>
+    .ui-autocomplete-loading {
+        background: white url("static/images/ui-anim_basic_16x16.gif") right center no-repeat;
+    }
+    </style>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+    <script>
+    function display_results(businesses) {
+        message = "";
+        for (var i = businesses.length - 1; i >= 0; i--) {
+            // u2606 is a white star.
+            message += businesses[i].rating.toFixed(1) + "/5\u2606  " + businesses[i].name + "\n";
+        }
+        $("#businesses").text(message);
+        $("#businesses").scrollTop(0);
+    }
+
+    $(function() {
+        $("#search_bar").autocomplete({
+            source: "/autocomplete",
+            minLength: 3,
+            select: function(event, ui) {
+                $.ajax({
+                    url: "/business_search",
+                    type: "GET",
+                    data: {
+                        term: ui.item.value
+                    },
+                    success: function(result){
+                        display_results(JSON.parse(result).businesses);
+                    }
+                });
+            }
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <div class="ui-widget">
+      <label for="search_bar">Business Search: </label>
+      <input id="search_bar" style="width: 400px;">
+    </div>
+     
+    <div class="ui-widget">
+      Businesses:
+      <div id="businesses" style="height: 400px; width: 600px; overflow: auto; white-space: pre;" class="ui-widget-content" />
+    </div>
+</body>
+</html>
