@@ -10,6 +10,8 @@ pip install requests
 
 **TODO:** Use pythons concept of requirements.
 
+Copy "config-replace.py" to "config.py" and follow the instructions in this file. You want to replace the client id and client secret with your Yelp API V3 credentials.
+
 You then need to run the web server.
 
 **./webserver.py**
